@@ -13,8 +13,8 @@ module VagrantZFS
 
       def call(env)
         uuid = @env[:vm].uuid
-        system "sudo zfs snapshot mypool/mysql@#{uuid}"
-        system "sudo zfs clone mypool/mysql@#{uuid} mypool/mysql-vagrant-#{uuid}"
+        system "zfs snapshot mypool/mysql@#{uuid}"
+        system "zfs clone mypool/mysql@#{uuid} mypool/mysql-vagrant-#{uuid}"
 
         @env[:vm].config.vm.share_folder "mysql", "/data/mysql", "/Volumes/mypool/mysql-vagrant-#{uuid}"
 
@@ -31,8 +31,8 @@ module VagrantZFS
       def call(env)
         uuid = @env[:vm].uuid
 
-        system "sudo zfs destroy mypool/mysql-vagrant-#{uuid}"
-        system "sudo zfs destroy mypool/mysql@#{uuid}"
+        system "zfs destroy mypool/mysql-vagrant-#{uuid}"
+        system "zfs destroy mypool/mysql@#{uuid}"
 
         @app.call(env)
       end
