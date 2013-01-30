@@ -16,7 +16,7 @@ module VagrantZFS
         system "zfs snapshot mypool/mysql@#{uuid}"
         system "zfs clone mypool/mysql@#{uuid} mypool/mysql-vagrant-#{uuid}"
 
-        @env[:vm].config.vm.share_folder "mysql", "/data/mysql", "/Volumes/mypool/mysql-vagrant-#{uuid}"
+        @env[:vm].config.vm.share_folder "mysql", "/data/mysql", "/Volumes/mypool/mysql-vagrant-#{uuid}", :owner => "mysql", :group => "mysql"
 
         @app.call(env)
       end
