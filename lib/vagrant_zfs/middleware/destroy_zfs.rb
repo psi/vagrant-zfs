@@ -10,11 +10,11 @@ module VagrantZFS
         uuid = @env[:vm].uuid
 
         env[:vm].config.zfs.cloned_folders.each do |name, data|
-          snapshot_name  = "#{data[:filesystem]}@#{uuid}"
-          new_filesystem = "#{data[:filesystem]}-#{uuid}"
+          new_fs = ZFS("#{data[:filesystem]}-#{uuid}")
+          snapshot = new_fs.origin
 
-          system "zfs destroy #{new_filesystem}"
-          system "zfs destroy #{snapshot_name}"
+          new_fs.destroy!
+          snapshot.destroy!
         end
 
         @app.call(env)

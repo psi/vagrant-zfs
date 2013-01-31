@@ -9,13 +9,12 @@ module VagrantZFS
         uuid = env[:vm].uuid
 
         env[:vm].config.zfs.cloned_folders.each do |name, data|
-          snapshot_name  = "#{data[:filesystem]}@#{uuid}"
-          new_filesystem = "#{data[:filesystem]}-#{uuid}"
+          source_fs = ZFS(data[:filesystem])
 
-          system "zfs snapshot #{snapshot_name}"
-          system "zfs clone #{snapshot_name} #{new_filesystem}"
+          snapshot = source_fs.snapshot(uuid)
+          new_fs = snapshot.clone!("#{data[:filesystem]}-#{uuid}")
 
-          env[:vm].config.vm.share_folder name, data[:guestpath], "/Volumes/#{new_filesystem}", data[:options]
+          env[:vm].config.vm.share_folder name, data[:guestpath], new_fs.mountpoint, data[:options]
         end
 
         @app.call(env)
