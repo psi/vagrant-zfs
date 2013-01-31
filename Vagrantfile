@@ -3,45 +3,13 @@
 
 # config.share_cloned_zfs "mysql", "/data/mysql", "mypool/mysql"
 
-module VagrantZFS
-  module Middleware
-    class CloneAndShare
-      def initialize(app, env)
-        @app = app
-        @env = env
-      end
+#lib = File.expand_path('../lib', __FILE__)
+#$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
-      def call(env)
-        uuid = @env[:vm].uuid
-        system "zfs snapshot mypool/mysql@#{uuid}"
-        system "zfs clone mypool/mysql@#{uuid} mypool/mysql-vagrant-#{uuid}"
+#require "vagrant_zfs"
 
-        @env[:vm].config.vm.share_folder "mysql", "/data/mysql", "/Volumes/mypool/mysql-vagrant-#{uuid}", :owner => "mysql", :group => "mysql"
-
-        @app.call(env)
-      end
-    end
-
-    class Destroy
-      def initialize(app, env)
-        @app = app
-        @env = env
-      end
-
-      def call(env)
-        uuid = @env[:vm].uuid
-
-        system "zfs destroy mypool/mysql-vagrant-#{uuid}"
-        system "zfs destroy mypool/mysql@#{uuid}"
-
-        @app.call(env)
-      end
-    end
-  end
-end
-
-Vagrant.actions[:start].insert_before Vagrant::Action::VM::ShareFolders, VagrantZFS::Middleware::CloneAndShare
-Vagrant.actions[:destroy].insert_before Vagrant::Action::VM::Destroy, VagrantZFS::Middleware::Destroy
+Vagrant.actions[:start].insert_before Vagrant::Action::VM::ShareFolders, VagrantZFS::Middleware::CloneZFS
+Vagrant.actions[:destroy].insert_before Vagrant::Action::VM::Destroy, VagrantZFS::Middleware::DestroyZFS
 
 Vagrant::Config.run do |config|
   # All Vagrant configuration is done here. The most common configuration
