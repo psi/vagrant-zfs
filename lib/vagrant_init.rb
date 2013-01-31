@@ -1,1 +1,1 @@
-require "vagrant-zfs"
+require "vagrant_zfs"
