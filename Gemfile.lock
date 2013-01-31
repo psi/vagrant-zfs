@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     vagrant-zfs (0.0.1)
+      zfs
 
 GEM
   remote: https://rubygems.org/
@@ -28,6 +29,7 @@ GEM
       log4r (~> 1.1.9)
       net-scp (~> 1.0.4)
       net-ssh (~> 2.2.2)
+    zfs (0.1.1)
 
 PLATFORMS
   ruby
