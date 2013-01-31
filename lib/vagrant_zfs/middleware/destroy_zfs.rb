@@ -17,3 +17,6 @@ module VagrantZFS
     end
   end
 end
+
+Vagrant.actions[:destroy].insert_before Vagrant::Action::VM::Destroy,
+                                        VagrantZFS::Middleware::DestroyZFS
