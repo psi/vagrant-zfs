@@ -3,15 +3,20 @@ module VagrantZFS
     class CloneZFS
       def initialize(app, env)
         @app = app
-        @env = env
       end
 
       def call(env)
-        uuid = @env[:vm].uuid
-        system "zfs snapshot mypool/mysql@#{uuid}"
-        system "zfs clone mypool/mysql@#{uuid} mypool/mysql-vagrant-#{uuid}"
+        uuid = env[:vm].uuid
 
-        @env[:vm].config.vm.share_folder "mysql", "/data/mysql", "/Volumes/mypool/mysql-vagrant-#{uuid}"
+        env[:vm].config.zfs.cloned_folders.each do |name, data|
+          snapshot_name  = "#{data[:filesystem]}@#{uuid}"
+          new_filesystem = "#{data[:filesystem]}-#{uuid}"
+
+          system "zfs snapshot #{snapshot_name}"
+          system "zfs clone #{snapshot_name} #{new_filesystem}"
+
+          env[:vm].config.vm.share_folder name, data[:guestpath], "/Volumes/#{new_filesystem}", data[:options]
+        end
 
         @app.call(env)
       end

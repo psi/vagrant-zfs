@@ -9,8 +9,13 @@ module VagrantZFS
       def call(env)
         uuid = @env[:vm].uuid
 
-        system "zfs destroy mypool/mysql-vagrant-#{uuid}"
-        system "zfs destroy mypool/mysql@#{uuid}"
+        env[:vm].config.zfs.cloned_folders.each do |name, data|
+          snapshot_name  = "#{data[:filesystem]}@#{uuid}"
+          new_filesystem = "#{data[:filesystem]}-#{uuid}"
+
+          system "zfs destroy #{new_filesystem}"
+          system "zfs destroy #{snapshot_name}"
+        end
 
         @app.call(env)
       end
