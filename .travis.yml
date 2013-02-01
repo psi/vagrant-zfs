@@ -1,7 +1,7 @@
 language: ruby
-before_script:
-  - sudo apt-get -y install linux-headers-$(uname -r)
-  - sudo apt-get install virtualbox
+#before_script:
+#  - sudo apt-get -y install linux-headers-$(uname -r)
+#  - sudo apt-get install virtualbox
 script: "bundle exec rake test:unit"
 rvm:
   - 1.9.3
