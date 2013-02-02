@@ -44,13 +44,13 @@ This project is still in the very early stages, so proceed with caution.
     $ bundle install
     ```
 
-3. Create a sandbox zpool and filesystem.
+4. Create a sandbox zpool and filesystem.
 
     ```
     $ bundle exec rake sandbox:create
     ```
 
-4. Bring up a test VM.
+5. Bring up a test VM.
 
     ```
     $ bundle exec vagrant up
@@ -64,14 +64,14 @@ This project is still in the very early stages, so proceed with caution.
     $ zfs list | grep vagrant_zfs_test/test
     vagrant_zfs_test/test                                       33.5Ki 27.2Mi  33.5Ki  /Volumes/vagrant_zfs_test/test
     vagrant_zfs_test/test-94813591-df75-4cc9-8067-faaaff291bd7     1Ki 27.2Mi  33.5Ki  /Volumes/vagrant_zfs_test/test-94813591-df75-4cc9-8067-faaaff291bd7
-    
-    # Notice the original filesystem you created and the cloned filesystem
-    # that is now attached to the VM. The UUID of the Vagrant instance is
-    # appended to the clone name so you can bring up multiple VMs, each with
-    # their own clone of the original filesystem.
     ```
     
-5. Destroy your VM and cleanup
+   Notice the original filesystem you created and the cloned filesystem
+   that is now attached to the VM. The UUID of the Vagrant instance is
+   appended to the clone name so you can bring up multiple VMs, each with
+   their own clone of the original filesystem.
+    
+6. Destroy your VM and cleanup
 
     ```
     $ bundle exec vagrant destroy
