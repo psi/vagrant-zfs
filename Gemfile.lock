@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     vagrant-zfs (0.0.1)
-      zfs
+      zfs (~> 0.1)
 
 GEM
   remote: https://rubygems.org/
