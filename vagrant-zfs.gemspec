@@ -30,5 +30,5 @@ Gem::Specification.new do |gem|
 
   gem.add_development_dependency "rake"
   gem.add_development_dependency "minitest"
-  gem.add_development_dependency "vagrant", "1.0.6"
+  gem.add_development_dependency "vagrant", ">= 1.0", "< 1.1"
 end
