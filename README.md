@@ -58,7 +58,7 @@ This project is still in the very early stages, so proceed with caution.
     ```
     
    Take a look in /data/vagrant-zfs-test on the VM and you'll
-   see the on_zfs.txt file that we touched earlier.
+   see the on_zfs.txt file that was created during sandbox:create.
    
    Now, exit the VM and check out what's been done.
    
