@@ -55,12 +55,14 @@ This project is still in the very early stages, so proceed with caution.
     ```
     $ bundle exec vagrant up
     $ bundle exec vagrant ssh
+    ```
     
-    # Take a look in /data/vagrant-zfs-test on the VM and you'll
-    # see the on_zfs.txt file that we touched earlier.
-    #
-    # Now, exit the VM...
-    
+   Take a look in /data/vagrant-zfs-test on the VM and you'll
+   see the on_zfs.txt file that we touched earlier.
+   
+   Now, exit the VM and check out what's been done.
+   
+    ``` 
     $ zfs list | grep vagrant_zfs_test/test
     vagrant_zfs_test/test                                       33.5Ki 27.2Mi  33.5Ki  /Volumes/vagrant_zfs_test/test
     vagrant_zfs_test/test-94813591-df75-4cc9-8067-faaaff291bd7     1Ki 27.2Mi  33.5Ki  /Volumes/vagrant_zfs_test/test-94813591-df75-4cc9-8067-faaaff291bd7
