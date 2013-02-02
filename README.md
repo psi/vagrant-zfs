@@ -80,10 +80,12 @@ This project is still in the very early stages, so proceed with caution.
     
     $ zfs list | grep vagrant_zfs_test/test
     vagrant_zfs_test/test    33.5Ki  27.1Mi  33.5Ki /Volumes/vagrant_zfs_test/test
+    ```
     
-    # Destroying the VM also destroys the cloned filesystem and the snapshot
-    # that was used to make it so you won't end up with tons of crufty clones.
+   Destroying the VM also destroys the cloned filesystem and the snapshot
+   that was used to make it so you won't end up with tons of crufty clones.
 
+    ```
     $ bundle exec rake sandbox:destroy
     ```
 
