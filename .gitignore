@@ -1,2 +1,4 @@
 .vagrant
+.bundle
+bin/
 pkg/
